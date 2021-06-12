@@ -151,7 +151,7 @@ export const PageWrapper = (props) => {
                         <ListItemIcon><AssignmentIcon /></ListItemIcon>
                         <ListItemText primary={"Practice"} />
                     </ListItem>
-                    <ListItem button key={"StatsButton"} onClick={() => history.push("/")}>
+                    <ListItem button key={"StatsButton"} onClick={() => history.push("/stats")}>
                         <ListItemIcon><TrendingUpIcon /></ListItemIcon>
                         <ListItemText primary={"Stats"} />
                     </ListItem>

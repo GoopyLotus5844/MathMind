@@ -28,21 +28,9 @@ namespace MathMind.Data
             }
             context.SaveChanges();
 
-            var problems = new Problem[]
-            {
-            new Problem{ProblemText="9 + 10", CorrectAnswer=21, UserID=1 },
-            new Problem{ProblemText="2+2", CorrectAnswer=4, UserID=2},
-            new Problem{ProblemText="99 * 2", CorrectAnswer=198, UserID=3}
-            };
-            foreach (Problem p in problems)
-            {
-                context.Problems.Add(p);
-            }
-            context.SaveChanges();
-
             var solves = new ProblemSolve[]
             {
-            new ProblemSolve{Tries=2,Time=500,ProblemID=2}
+            new ProblemSolve{Tries=2,Time=500,ProblemText="2+2",Answer=4,UserID=1}
             };
             foreach (ProblemSolve p in solves)
             {

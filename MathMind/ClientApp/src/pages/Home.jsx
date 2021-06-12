@@ -4,7 +4,7 @@ import { Problem } from '../components/Problem';
 export const Home = () => {
 
     const [problemInfo, setProblemInfo] = useState({
-        problemId: 0,
+        id: 0,
         problemText: "",
         correctAnswer: ""
     });
@@ -14,13 +14,15 @@ export const Home = () => {
     useEffect(() => loadNewProblem(), [])
 
     const submitProblemSolved = async () => {
-        console.log(tries);
-        const url = "Solves/Create";
+        console.log(JSON.stringify(problemInfo));
+        const url = "baseapi/solve";
 
         var data = new FormData();
         data.append("Tries", tries);
         data.append("Time", 1234);
-        data.append("ProblemID", problemInfo.problemId);
+        data.append("UserID", 1);
+        data.append("ProblemText", problemInfo.problemText);
+        data.append("Answer", problemInfo.correctAnswer);
 
         await fetch(url, {
             method: 'POST',
@@ -37,7 +39,7 @@ export const Home = () => {
     }
 
     const loadNewProblem = () => {
-        fetch('problem')
+        fetch('baseapi/problem?userID=1')
             .then((res) => res.json())
             .then((problem) => setProblemInfo(problem))
     }

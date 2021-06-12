@@ -5,6 +5,7 @@ import { PageWrapper } from './components/PageWrapper';
 import { Home } from './pages/Home';
 import { lightTheme, darkTheme } from './styles/ApplicationTheme';
 import { useSelector } from 'react-redux'
+import { Stats } from './pages/Stats';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
             <PageWrapper>
                 <Switch>
                     <Route exact path='/' component={Home} />
+                    <Route exact path='/stats' component={Stats}/>
                 </Switch>
             </PageWrapper>
         </MuiThemeProvider>

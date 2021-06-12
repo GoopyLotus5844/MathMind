@@ -9,8 +9,10 @@ namespace MathMind.Models
     {
         public int ID { get; set; }
         public int Tries { get; set; }
+        public String ProblemText { get; set; }
+        public int Answer { get; set; }
         public int Time { get; set; }
-        public int ProblemID { get; set; }
-        public Problem Problem { get; set; }
+        public int UserID { get; set; }
+        public User user { get; set; }
     }
 }
