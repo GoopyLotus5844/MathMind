@@ -1,6 +1,7 @@
 ﻿using MathMind.Data;
 using MathMind.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,12 @@ namespace MathMind.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<List<ProblemSolve>> GetSolvedProblems([FromQuery] int userID)
+        {
+            return await _context.Solves.Where(s => s.UserID == userID).ToListAsync();
         }
 
         [HttpPost]
