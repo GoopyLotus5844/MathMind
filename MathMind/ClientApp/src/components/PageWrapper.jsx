@@ -129,6 +129,7 @@ export const PageWrapper = (props) => {
                         MathMind
                     </Typography>
                     <IconButton onClick={updateTheme}>{getThemeIcon()}</IconButton>
+                    <Button variant="contained">Login</Button>
                 </Toolbar>
             </AppBar>
             <Drawer

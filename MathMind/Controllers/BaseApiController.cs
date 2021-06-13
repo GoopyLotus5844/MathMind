@@ -52,7 +52,7 @@ namespace MathMind.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> NewUser([Bind("Username")] User user)
+        public async Task<IActionResult> NewUser([Bind("Username", "Level")] User user)
         {
             if (ModelState.IsValid) 
             {

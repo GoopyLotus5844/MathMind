@@ -19,7 +19,7 @@ export const Stats = () => {
     const [problems, setProblems] = useState([])
 
     useEffect(() => {
-        fetch('baseapi/getsolvedproblems?userID=2')
+        fetch('baseapi/getsolvedproblems?userID=1')
             .then((res) => res.json())
             .then((problems) => setProblems(problems));
     }, [])
@@ -42,9 +42,9 @@ export const Stats = () => {
     return (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <Typography variant="h4" style={{ margin: "0.5rem" }}>Recent problems</Typography>
-            <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", flexWrap: "wrap"}}>
+            <div style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", flexWrap: "wrap"}}>
                 {problems.map((problem) => (
-                    <Card style={{ width: "20%", margin: "1rem" }}>
+                    <Card style={{ width: "300px", margin: "1rem" }}>
                         <CardContent>
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                 <Typography style={{ fontSize: 30 }}>{problem.problemText}</Typography>

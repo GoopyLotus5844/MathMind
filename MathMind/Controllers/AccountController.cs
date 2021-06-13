@@ -14,7 +14,7 @@ namespace MathMind.Controllers
     public class AccountController : Controller
     {
         [Route("google-login")]
-        public IActionResult GoogleLogin()
+        public IActionResult GoogleLogin([FromQuery] string redirectURI = "/")
         {
             var properties = new AuthenticationProperties { RedirectUri = Url.Action("GoogleResponse") };
             return Challenge(properties, GoogleDefaults.AuthenticationScheme);

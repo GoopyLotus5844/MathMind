@@ -20,7 +20,7 @@ export const Home = () => {
         var data = new FormData();
         data.append("Tries", tries);
         data.append("Time", 1234);
-        data.append("UserID", 2);
+        data.append("UserID", 1);
         data.append("ProblemText", problemInfo.problemText);
         data.append("Answer", problemInfo.correctAnswer);
 

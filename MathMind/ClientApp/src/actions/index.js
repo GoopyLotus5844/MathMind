@@ -4,3 +4,10 @@
         theme: theme
     }
 }
+
+export const set_user = (newUser) => {
+    return {
+        type: "SET_USER",
+        user: newUser
+    }
+}
