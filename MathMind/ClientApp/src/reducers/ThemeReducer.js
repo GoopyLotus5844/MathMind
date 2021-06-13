@@ -1,10 +1,8 @@
 ﻿const ThemeReducer = (state = localStorage.getItem('theme') == 'dark' ? 'dark' : 'light', action) => {
-    switch(action.type){
-        case 'CHANGE_THEME':
-            return action.theme;
-        default:
-            return state;
+    if (action.type == "CHANGE_THEME") {
+        return action.theme;
     }
+    return state;
 }
 
 export default ThemeReducer;
