@@ -10,6 +10,6 @@ namespace MathMind.Models
         public int ID { get; set; }
         public string Username { get; set; }
         public int Level { get; set; }
-        public ICollection<ProblemSolve> solves { get; set; }
+        public ICollection<ProblemSolve> Solves { get; set; }
     }
 }

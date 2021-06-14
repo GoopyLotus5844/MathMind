@@ -15,7 +15,7 @@ export const Home = () => {
 
     const submitProblemSolved = async () => {
         console.log(JSON.stringify(problemInfo));
-        const url = "baseapi/solve";
+        const url = "api/submitsolve";
 
         var data = new FormData();
         data.append("Tries", tries);
@@ -39,7 +39,7 @@ export const Home = () => {
     }
 
     const loadNewProblem = () => {
-        fetch('baseapi/problem?userID=1')
+        fetch('api/problem?userID=1')
             .then((res) => res.json())
             .then((problem) => setProblemInfo(problem))
     }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace MathMind.Controllers
 {
+    [Route("api/")]
     public class BaseApiController : ControllerBase
     {
         private readonly ILogger<BaseApiController> _logger;
@@ -22,6 +23,7 @@ namespace MathMind.Controllers
         }
 
         [HttpGet]
+        [Route("problem")]
         public Problem Problem([FromQuery] int userID)
         {
             var rng = new Random();
@@ -34,6 +36,7 @@ namespace MathMind.Controllers
         }
 
         [HttpPost]
+        [Route("submitsolve")]
         public async Task<IActionResult> Solve([Bind("Tries,Time,UserID,ProblemText,Answer")] ProblemSolve solve)
         {
             if (ModelState.IsValid)
@@ -46,12 +49,14 @@ namespace MathMind.Controllers
         }
 
         [HttpGet]
-        public async Task<List<ProblemSolve>> GetSolvedProblems([FromQuery] int userID)
+        [Route("solvedproblems")]
+        public async Task<List<ProblemSolve>> GetSolvedProblems([FromQuery] int? userID)
         {
             return await _context.Solves.Where(s => s.UserID == userID).ToListAsync();
         }
 
         [HttpPost]
+        [Route("newuser")]
         public async Task<IActionResult> NewUser([Bind("Username", "Level")] User user)
         {
             if (ModelState.IsValid) 

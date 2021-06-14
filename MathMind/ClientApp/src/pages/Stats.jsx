@@ -19,7 +19,7 @@ export const Stats = () => {
     const [problems, setProblems] = useState([])
 
     useEffect(() => {
-        fetch('baseapi/getsolvedproblems?userID=1')
+        fetch('api/solvedproblems?userID=1')
             .then((res) => res.json())
             .then((problems) => setProblems(problems));
     }, [])

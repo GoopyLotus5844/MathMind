@@ -129,7 +129,7 @@ export const PageWrapper = (props) => {
                         MathMind
                     </Typography>
                     <IconButton onClick={updateTheme}>{getThemeIcon()}</IconButton>
-                    <Button variant="contained">Login</Button>
+                    <Button variant="contained" onClick={() => history.push("/account/google-login")}>Login</Button>
                 </Toolbar>
             </AppBar>
             <Drawer
