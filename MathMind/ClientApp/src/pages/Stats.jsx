@@ -10,6 +10,14 @@ const useStyles = makeStyles((theme) => ({
         margin: "1rem",
         overflow: "hidden"
     },
+    problemList: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        flexWrap: "wrap"
+    }
 }));
 
 export const Stats = () => {
@@ -42,9 +50,9 @@ export const Stats = () => {
     return (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <Typography variant="h4" style={{ margin: "0.5rem" }}>Recent problems</Typography>
-            <div style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", flexWrap: "wrap"}}>
-                {problems.map((problem) => (
-                    <Card style={{ width: "300px", margin: "1rem" }}>
+            <div className={classes.problemList}>
+                {problems.map((problem, index) => (
+                    <Card key={index} style={{ width: "300px", margin: "1rem" }}>
                         <CardContent>
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                 <Typography style={{ fontSize: 30 }}>{problem.problemText}</Typography>

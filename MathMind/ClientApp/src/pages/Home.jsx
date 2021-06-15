@@ -1,60 +1,60 @@
+import { makeStyles, Typography, Card, CardContent, Button, Grid } from '@material-ui/core';
 import React, { useState, useEffect } from 'react'
 import { Problem } from '../components/Problem';
+import { Practice } from './Practice';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        '& .MuiCard-root': {
+            width: '500px',
+            height: '300px',
+            margin: "1rem"
+        }
+    }
+}));
 
 export const Home = () => {
 
-    const [problemInfo, setProblemInfo] = useState({
-        id: 0,
-        problemText: "",
-        correctAnswer: ""
-    });
+    const classes = useStyles();
 
-    const [tries, setTries] = useState(1);
+    const [practicing, setPracticing] = useState(false);
+    const [practiceType, setPracticeType] = useState("");
 
-    useEffect(() => loadNewProblem(), [])
-
-    const submitProblemSolved = async () => {
-        console.log(JSON.stringify(problemInfo));
-        const url = "api/submitsolve";
-
-        var data = new FormData();
-        data.append("Tries", tries);
-        data.append("Time", 1234);
-        data.append("UserID", 1);
-        data.append("ProblemText", problemInfo.problemText);
-        data.append("Answer", problemInfo.correctAnswer);
-
-        await fetch(url, {
-            method: 'POST',
-            body: data,
-            credentials: 'same-origin'
-        })
-            .then(async (result) => {
-                if (!result.ok) {
-                    console.log("submit solve failed");
-                } else
-                    console.log("pog");
-            })
-        setTries(1)
-    }
-
-    const loadNewProblem = () => {
-        fetch('api/problem?userID=1')
-            .then((res) => res.json())
-            .then((problem) => setProblemInfo(problem))
-    }
-
-    const handleAnswerSubmit = (correct) => {
-        if (correct) {
-            submitProblemSolved();
-            loadNewProblem();
-        }
-        else setTries(tries + 1);
+    const startPractice = (type) => {
+        setPracticing(true);
+        setPracticeType(type);
     }
 
     return (
-        <div>
-            <Problem problemInfo={problemInfo} answerSubmitCallback={handleAnswerSubmit}/>
-        </div>
+        practicing ?
+        (<Practice {...({practiceType, practicing, setPracticing})}/>)
+        :
+        (<Grid container spacing={3}>
+            <Grid item xs={4}>
+                <Card>
+                    <CardContent style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <Typography variant="h4">Addition</Typography>
+                        <Button onClick={() => startPractice("Addition")}variant="contained">Practice</Button>
+                    </CardContent>
+                </Card>
+            </Grid>
+            <Grid item xs={4}>
+                <Card>
+                    <CardContent style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <Typography variant="h4">Subtraction</Typography>
+                        <Button onClick={() => startPractice("Subtraction")} variant="contained">Practice</Button>
+                    </CardContent>
+                </Card>
+            </Grid>
+            <Grid item xs={4}>
+                <Card>
+                    <CardContent style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <Typography variant="h4">Mutliplication</Typography>
+                        <Button onClick={() => startPractice("Multiplication")} variant="contained">Practice</Button>
+                    </CardContent>
+                </Card>
+            </Grid>
+        </Grid>) 
     );
 }

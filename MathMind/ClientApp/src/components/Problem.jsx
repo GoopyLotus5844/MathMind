@@ -1,13 +1,8 @@
-﻿import { makeStyles, Typography, TextField, Paper, Button } from '@material-ui/core';
+﻿import { makeStyles, Typography, TextField, Paper, Button, IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import React, { useState, useEffect } from 'react'
 
 const useStyles = makeStyles((theme) => ({
-    problemPaper: {
-        width: "75%",
-        padding: "1rem",
-        margin: "auto",
-        overflow: "hidden"
-    },
     submitButtonFirstTry:{
         color: "#FFF",
         backgroundColor: theme.palette.primary.main,
@@ -61,29 +56,35 @@ export const Problem = (props) => {
     }
 
     return (
-        <Paper className={classes.problemPaper} >
-            <Typography variant="h2">{problemInfo.problemText}</Typography>
+        <div>
+            <div style = {{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
+                <Typography variant="h2">{problemInfo.problemText}</Typography>
+                <IconButton size="small" onClick={() => props.setPracticing(false)}><CloseIcon></CloseIcon></IconButton>
+            </div>
             
-            <form onSubmit={handleAnswerSubmit}>
-                <TextField 
-                    id="answer-field" 
-                    label="Answer" 
-                    value={answer} 
-                    variant="filled" 
-                    autoComplete="off"
-                    onChange={handleAnswerChange} 
-                    helperText={answerError}
-                    error={answerError != ''}/>
-                <br/>
-                <Button 
-                    type="submit" 
-                    variant="contained" 
-                    style={{marginTop: '1rem'}}
-                    className={buttonText == "Submit" ? classes.submitButtonFirstTry : classes.submitButtonSecondTry}
-                >
-                    {buttonText}
-                </Button>
-            </form>
-        </Paper>
+            <div style = {{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end'}}>
+                <form onSubmit={handleAnswerSubmit}>
+                    <TextField 
+                        id="answer-field" 
+                        label="Answer" 
+                        value={answer} 
+                        variant="filled" 
+                        autoComplete="off"
+                        onChange={handleAnswerChange} 
+                        helperText={answerError}
+                        error={answerError != ''}/>
+                    <br/>
+                    <Button 
+                        type="submit" 
+                        variant="contained" 
+                        style={{marginTop: '1rem'}}
+                        className={buttonText == "Submit" ? classes.submitButtonFirstTry : classes.submitButtonSecondTry}
+                    >
+                        {buttonText}
+                    </Button>
+                </form>
+                <Typography>{`Problem ${props.problemsCompleted} / 10`}</Typography>
+            </div>
+        </div>
     );
 }
