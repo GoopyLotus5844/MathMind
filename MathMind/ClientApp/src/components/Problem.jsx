@@ -36,7 +36,7 @@ export const Problem = (props) => {
 
     const handleAnswerChange = (event) => {
         setAnswer(event.target.value)
-        if(!/^\d+$/.test(event.target.value)) 
+        if(props.practiceType == 0 && !/^\d+$/.test(event.target.value)) 
             setAnswerError("Please enter a positive integer");
         else
             setAnswerError("");

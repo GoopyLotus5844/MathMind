@@ -24,15 +24,36 @@ namespace MathMind.Controllers
 
         [HttpGet]
         [Route("problem")]
-        public Problem Problem([FromQuery] int userID)
+        public Problem Problem([FromQuery] int userID, [FromQuery] int type)
         {
             var rng = new Random();
-            int a = rng.Next(100), b = rng.Next(100);
-            return new Problem
+            int range = type == 2 ? 20 : 100;
+            int a = rng.Next(range), b = rng.Next(range);
+
+            if (type == 0)
             {
-                ProblemText = a + "+" + b,
-                CorrectAnswer = a + b
-            };
+                return new Problem
+                {
+                    ProblemText = a + "+" + b,
+                    CorrectAnswer = a + b
+                };
+            }
+            else if (type == 1)
+            {
+                return new Problem
+                {
+                    ProblemText = a + "-" + b,
+                    CorrectAnswer = a - b
+                };
+            }
+            else
+            {
+                return new Problem
+                {
+                    ProblemText = a + "x" + b,
+                    CorrectAnswer = a * b
+                };
+            }
         }
 
         [HttpPost]
@@ -41,6 +62,7 @@ namespace MathMind.Controllers
         {
             if (ModelState.IsValid)
             {
+                solve.submitted = DateTime.UtcNow;
                 _context.Add(solve);
                 await _context.SaveChangesAsync();
             }
@@ -52,7 +74,12 @@ namespace MathMind.Controllers
         [Route("solvedproblems")]
         public async Task<List<ProblemSolve>> GetSolvedProblems([FromQuery] int? userID)
         {
-            return await _context.Solves.Where(s => s.UserID == userID).ToListAsync();
+            return await _context.Solves
+                .Where(s => s.UserID == userID)
+                .OrderByDescending(s => s.submitted)
+                .AsNoTracking()
+                .Take(10)
+                .ToListAsync();
         }
 
         [HttpPost]

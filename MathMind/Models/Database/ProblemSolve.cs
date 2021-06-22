@@ -14,5 +14,6 @@ namespace MathMind.Models
         public int Time { get; set; }
         public int UserID { get; set; }
         public User user { get; set; }
+        public DateTime submitted { get; set; }
     }
 }

@@ -25,14 +25,16 @@ export const Practice = (props) => {
     const [tries, setTries] = useState(1);
     const [problemsCompleted, setProblemsCompleted] = useState(0);
 
+    var startTime = Date.now();
+
     useEffect(() => loadNewProblem(), [])
 
-    const submitProblemSolved = async () => {
+    const submitProblemSolved = async (time) => {
         const url = "api/submitsolve";
 
         var data = new FormData();
         data.append("Tries", tries);
-        data.append("Time", 1234);
+        data.append("Time", time);
         data.append("UserID", 1);
         data.append("ProblemText", problemInfo.problemText);
         data.append("Answer", problemInfo.correctAnswer);
@@ -50,7 +52,7 @@ export const Practice = (props) => {
     }
 
     const loadNewProblem = () => {
-        fetch('api/problem?userID=1')
+        fetch(`api/problem?userID=1&type=${props.practiceType}`)
             .then((res) => res.json())
             .then((problem) => setProblemInfo(problem))
     }
@@ -58,7 +60,9 @@ export const Practice = (props) => {
     const handleAnswerSubmit = (correct) => {
         if (correct) {
             setProblemsCompleted(problemsCompleted + 1);
-            submitProblemSolved();
+            var currentTime = Date.now();
+            submitProblemSolved(currentTime - startTime);
+            startTime = currentTime;
             if(problemsCompleted == 9) props.setPracticing(false)
             else {
                 loadNewProblem(); 
@@ -71,7 +75,7 @@ export const Practice = (props) => {
     return (
         <div>
             <Paper className={classes.problemPaper}>
-                <Problem {...({problemInfo, problemsCompleted, })} setPracticing={props.setPracticing} answerSubmitCallback={handleAnswerSubmit} />
+                <Problem {...({problemInfo, problemsCompleted, })} setPracticing={props.setPracticing} practiceType={props.practiceType} answerSubmitCallback={handleAnswerSubmit} />
             </Paper>
         </div>
     );

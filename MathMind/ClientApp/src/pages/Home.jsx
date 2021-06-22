@@ -1,4 +1,4 @@
-import { makeStyles, Typography, Card, CardContent, Button, Grid } from '@material-ui/core';
+import { makeStyles, Typography, Card, CardContent, Button, Grid, CardMedia } from '@material-ui/core';
 import React, { useState, useEffect } from 'react'
 import { Problem } from '../components/Problem';
 import { Practice } from './Practice';
@@ -7,9 +7,22 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         '& .MuiCard-root': {
-            width: '500px',
+            width: '300px',
             height: '300px',
-            margin: "1rem"
+            margin: "1rem",
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between'
+        },
+        '& .MuiCardContent-root':{
+            backgroundColor: theme.palette.primary.main,
+            color: 'white',
+            display: 'flex', 
+            flexDirection: 'column', 
+            justifyContent: 'space-between'
+        },
+        '& .MuiButton-root':{
+            margin: '1rem'
         }
     }
 }));
@@ -30,31 +43,33 @@ export const Home = () => {
         practicing ?
         (<Practice {...({practiceType, practicing, setPracticing})}/>)
         :
-        (<Grid container spacing={3}>
-            <Grid item xs={4}>
-                <Card>
-                    <CardContent style={{display: 'flex', justifyContent: 'space-between'}}>
-                        <Typography variant="h4">Addition</Typography>
-                        <Button onClick={() => startPractice("Addition")}variant="contained">Practice</Button>
-                    </CardContent>
-                </Card>
-            </Grid>
-            <Grid item xs={4}>
-                <Card>
-                    <CardContent style={{display: 'flex', justifyContent: 'space-between'}}>
-                        <Typography variant="h4">Subtraction</Typography>
-                        <Button onClick={() => startPractice("Subtraction")} variant="contained">Practice</Button>
-                    </CardContent>
-                </Card>
-            </Grid>
-            <Grid item xs={4}>
-                <Card>
-                    <CardContent style={{display: 'flex', justifyContent: 'space-between'}}>
-                        <Typography variant="h4">Mutliplication</Typography>
-                        <Button onClick={() => startPractice("Multiplication")} variant="contained">Practice</Button>
-                    </CardContent>
-                </Card>
-            </Grid>
-        </Grid>) 
+        (<div className={classes.root}>
+            <Card>
+                <CardContent>
+                    <Typography variant="h4">Addition</Typography>
+                </CardContent>
+                <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <Button onClick={() => startPractice(0)}variant="contained">Practice</Button>
+                </div>
+            </Card>
+        
+            <Card>
+                <CardContent>
+                    <Typography variant="h4">Subtraction</Typography>
+                </CardContent>
+                <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <Button onClick={() => startPractice(1)}variant="contained">Practice</Button>
+                </div>
+            </Card>
+            
+            <Card>
+                <CardContent>
+                    <Typography variant="h4">Multiplication</Typography>
+                </CardContent>
+                <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <Button onClick={() => startPractice(2)}variant="contained">Practice</Button>
+                </div>
+            </Card>
+        </div>)
     );
 }
