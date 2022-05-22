@@ -1,22 +1,17 @@
-﻿import { makeStyles, Paper, Typography } from '@material-ui/core';
+﻿import { Paper, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react'
-import { isPropertyAccessOrQualifiedName } from 'typescript';
 import { Problem } from '../components/Problem';
+import { ProblemInfo } from '../definitions/API';
+import { PracticeType } from '../definitions/PracticeType';
 
-const useStyles = makeStyles((theme) => ({
-    problemPaper: {
-        width: "50%",
-        padding: "1rem",
-        margin: "auto",
-        overflow: "hidden"
-    },
-}))
+interface Props {
+    practiceType: PracticeType,
+    practicing: boolean,
+    setPracticing: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-export const Practice = (props) => {
-
-    const classes = useStyles();
-
-    const [problemInfo, setProblemInfo] = useState({
+export const Practice = (props: Props) => {
+    const [problemInfo, setProblemInfo] = useState<ProblemInfo>({
         id: 0,
         problemText: "",
         correctAnswer: ""
@@ -29,13 +24,13 @@ export const Practice = (props) => {
 
     useEffect(() => loadNewProblem(), [])
 
-    const submitProblemSolved = async (time) => {
+    const submitProblemSolved = async (time: number) => {
         const url = "api/submitsolve";
 
         var data = new FormData();
-        data.append("Tries", tries);
-        data.append("Time", time);
-        data.append("UserID", 1);
+        data.append("Tries", tries.toString());
+        data.append("Time", time.toString());
+        data.append("UserID", "1");
         data.append("ProblemText", problemInfo.problemText);
         data.append("Answer", problemInfo.correctAnswer);
 
@@ -54,10 +49,10 @@ export const Practice = (props) => {
     const loadNewProblem = () => {
         fetch(`api/problem?userID=1&type=${props.practiceType}`)
             .then((res) => res.json())
-            .then((problem) => setProblemInfo(problem))
+            .then((problem: ProblemInfo) => setProblemInfo(problem))
     }
 
-    const handleAnswerSubmit = (correct) => {
+    const handleAnswerSubmit = (correct: boolean) => {
         if (correct) {
             setProblemsCompleted(problemsCompleted + 1);
             var currentTime = Date.now();
@@ -74,7 +69,13 @@ export const Practice = (props) => {
 
     return (
         <div>
-            <Paper className={classes.problemPaper}>
+            <Paper sx={{
+                width: "50%",
+                padding: "1rem",
+                margin: "auto",
+                marginTop: "1rem",
+                overflow: "hidden"
+            }}>
                 <Problem {...({problemInfo, problemsCompleted, })} setPracticing={props.setPracticing} practiceType={props.practiceType} answerSubmitCallback={handleAnswerSubmit} />
             </Paper>
         </div>

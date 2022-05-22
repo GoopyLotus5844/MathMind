@@ -1,6 +1,6 @@
-﻿import { createMuiTheme } from '@material-ui/core';
+﻿import { createTheme, responsiveFontSizes, Theme } from "@mui/material";
 
-export const lightTheme = createMuiTheme({
+export const lightTheme = createTheme({
     palette: {
         primary: {  
             main: '#009c1a',
@@ -17,9 +17,9 @@ export const lightTheme = createMuiTheme({
     },
 });
 
-export const darkTheme = createMuiTheme({
+export const darkTheme = createTheme({
     palette: {
-        type: 'dark',
+		mode: 'dark',
         primary: {
             main: '#009c1a',
         },
