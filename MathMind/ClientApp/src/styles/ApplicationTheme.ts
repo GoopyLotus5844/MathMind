@@ -1,9 +1,9 @@
-﻿import { createTheme, responsiveFontSizes, Theme } from "@mui/material";
+﻿import { createTheme } from "@mui/material";
 
 export const lightTheme = createTheme({
     palette: {
         primary: {  
-            main: '#009c1a',
+            main: '#007013',
         },
         secondary: {
             main: '#2b84ff',

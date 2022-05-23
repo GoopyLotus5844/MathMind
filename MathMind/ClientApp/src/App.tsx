@@ -1,5 +1,5 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router';
 import { PageWrapper } from './components/PageWrapper';
 import { Home } from './pages/Home';

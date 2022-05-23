@@ -67,6 +67,7 @@ const AppBar = styled(MuiAppBar, {
             duration: theme.transitions.duration.enteringScreen,
         }),
     }),
+    //backgroundColor: theme.palette.primary.main
 }));
 
 interface Props {
@@ -89,8 +90,8 @@ export const PageWrapper = (props: Props) => {
     };
 
     const getThemeIcon = () => {
-        if (themeType === ThemeType.Light) return <Brightness7Icon />;
-        else return <Brightness4Icon style={{ color: "#FFF" }} />;
+        if (themeType === ThemeType.Light) return <Brightness7Icon sx={{color: "#FFF"}}/>;
+        else return <Brightness4Icon sx={{ color: "#FFF" }} />;
     };
 
     const updateTheme = () => {
@@ -122,7 +123,7 @@ export const PageWrapper = (props: Props) => {
                         {getThemeIcon()}
                     </IconButton>
                     <Button
-                        variant="contained"
+                        color = "inherit"
                         onClick={() => navigate("/account/google-login")}
                     >
                         Login
